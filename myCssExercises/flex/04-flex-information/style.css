@@ -8,10 +8,24 @@ img {
 }
 
 .title {
+  text-align: center;
   font-size: 36px;
   font-weight: 900;
+  margin-bottom: 25px;
 }
 
+.fruit {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 15%;
+}
+
+.fruit-container {
+  display: flex;
+ flex-direction: column; 
+ text-align: center;
+ align-items: center;
+}
 /* do not edit this footer */
 .footer {
   position: fixed;
