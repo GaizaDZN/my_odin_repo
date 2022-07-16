@@ -1,0 +1,11 @@
+body {
+background-color: #ff64a5;
+color: #1f0426;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    margin: 0;
+    padding: 0;
+}
