@@ -1,3 +1,11 @@
+@font-face {
+  font-family: Streamster;
+  src: url(./fonts/Streamster.ttf);
+}
+@font-face {
+  font-family: broadway;
+  src: url(./fonts/broadway.ttf);
+}
 * {
   margin: 0;
   padding: 0;
@@ -8,16 +16,18 @@
   --bg-margin: 0 8rem;
   --color-main: #e65b95;
   --an-color1: #12f0ad;
-  --an-color2: #ce132c;
+  --an-color2: #f1e214;
+  --color-white: #fff0f6;
 }
 
 /* VARIABLES ////////////////////// */
 body {
-  background-color: #fff0f6;
+  background-color: var(--color-white);
   color: #070218;
   background-image: url();
   display: flex;
   flex-direction: column;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .logo {
@@ -29,6 +39,7 @@ body {
 
 /* Header ///////////////////////// */
 header {
+  font-family: broadway;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,15 +79,14 @@ li a {
 .hero-text {
   font-size: 40px;
   flex-basis: min-content;
-  text-shadow:1px 1px 0px var(--an-color1), -1px -1px 0 var(--an-color2);
+  text-shadow: 1px 1px 0px var(--an-color1), -1px -1px 0 var(--an-color2);
 }
 
 /* Hero text animation */
 .hero-text {
-  -webkit-animation: glitch-small 3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    both infinite;
-  animation: glitch-small 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
+  -webkit-animation: glitch-small 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
     infinite;
+  animation: glitch-small 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
 }
 
 @-webkit-keyframes glitch-small {
@@ -116,15 +126,21 @@ li a {
   height: 50%;
 }
 
+.hero-content h1 {
+  font-weight: 800;
+  font-style: oblique;
+  font-size: 50px;
+}
+
 .hero-button {
   padding: 10px 50px;
   margin: 10px 0;
-  background-color: #df4c89;
   border: 1px solid white;
   border-radius: 5px;
   color: inherit;
   cursor: pointer;
   width: 50%;
+  font-weight: 600;
 }
 
 .hero-image {
@@ -151,14 +167,20 @@ li a {
   object-fit: cover;
 }
 
+.sec2-bg {
+  background-color: #170324;
+  color: var(--color-white);
+}
 .sec2 {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 0 10rem;
+  margin: 1rem 10rem;
 }
 .sec2 h2 {
+  font-family: Streamster;
   margin: 1rem 0;
+  font-size: 36px;
 }
 
 .section-links {
@@ -172,28 +194,23 @@ li a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  width: 100%;
   margin: 0 0.5rem;
   gap: 10px;
 }
-
-.square-link {
-  width: 100px;
-  height: 100px;
-  border: 1px solid #07031c;
-  border-radius: 5px;
+.square-link img {
+  width: 200px;
+  border-radius: 20px;
+  border: 3px solid pink;
 }
-
 .sec3-bg {
   background-color: var(--color-main);
   height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-image: url("https://giffiles.alphacoders.com/209/209169.gif");
+  background-image: url("./images/gif.gif");
   height: 400px;
-
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -206,8 +223,9 @@ li a {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background: white;
-  padding: 30px;
+  padding: 14px;
+  border: 3px solid var(--color-white);
+  background-color: #0b0111b7;
 }
 
 .sec-3 p {
@@ -218,8 +236,57 @@ li a {
   font-size: 36px;
   font-weight: 800;
   margin: 2rem 0;
+  width: fit-content;
+
+  color: var(--color-white);
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 10px;
 }
 .person {
   font-size: 18px;
   font-weight: 600;
+  width: fit-content;
+  float: right;
+  color: var(--color-white);
+  padding: 10px;
+}
+
+.sec4-bg {
+  height: 200px;
+  background-color: #170324;
+}
+.sec4 {
+  margin: var(--bg-margin);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-container {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+}
+
+.cta-button {
+  padding: 10px 50px;
+  margin: 10px 0;
+  background-color: #df4c89;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: var(--color-white);
+  cursor: pointer;
+  width: 50%;
+}
+footer {
+  height: 100px;
+  background-color: black;
+  display: flex;
+  color: var(--color-white);
+  justify-content: center;
+  align-items: center;
 }
