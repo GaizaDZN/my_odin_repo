@@ -1,23 +1,27 @@
 const randNum = () => {
-  return Math.floor(Math.random() * (3 - 1) + 1);
+  return Math.floor(Math.random() * 3);
 };
-const getComputerChoice = (a) => {
-  switch (a) {
-    case 1:
+const getComputerChoice = () => {
+  let rand = randNum();
+  console.log("compChoice = " + rand);
+  switch (rand) {
+    case 0:
       return "rock";
       break;
-    case 2:
+    case 1:
       return "paper";
       break;
-    case 3:
+    case 2:
       return "scissors";
       break;
   }
 };
 
 const playerSelection = () => {
-  let result = window.prompt("Enter 'rock, 'paper' or 'scissors'");
-  return result.toLowerCase();
+  let result = window
+    .prompt("Enter 'rock, 'paper' or 'scissors'")
+    .toLowerCase();
+  return result;
 };
 
 function playRound(playerSelection, computerSelection) {
@@ -27,24 +31,27 @@ function playRound(playerSelection, computerSelection) {
     rock: "rock beats scissors",
   };
 
+  let result = "";
   const playerWin = (str) => {
     console.log(str);
     console.log("Player wins the round!");
-    return { player: 1 };
+    result = "PLAYER";
   };
 
   const computerWin = (str) => {
     console.log(str);
     console.log("Computer wins the round!");
-    return { computer: 1 };
+    result = "COMPUTER";
   };
 
   const draw = () => {
     console.log("Draw. Try again!");
-    return { draw: 1 };
+    result = "DRAW";
   };
 
-  if (playerSelection === computerSelection) draw();
+  if (playerSelection === computerSelection) {
+    draw();
+  }
 
   if (playerSelection === "rock") {
     switch (computerSelection) {
@@ -76,23 +83,44 @@ function playRound(playerSelection, computerSelection) {
         break;
     }
   }
+
+  return result;
 }
 
 const gameLoop = (winCount) => {
-  let gameWins = { player: 0, computer: 0, draw: 0 };
+  let playerWins = 0;
+  let compWins = 0;
+  let draws = 0;
+  let roundCount = 1;
 
   console.log("ROCK, PAPER SCISSORS");
-  while (gameWins.player <= winCount || gameWins.computer <= winCount) {
-    if (gameWins.player === 0 && gameWins.computer === 0)
-      console.log("Let the games begin!");
+  while (playerWins < winCount || compWins < winCount) {
+    if (roundCount === 1) console.log("Let the games begin!");
     let result = playRound(playerSelection(), getComputerChoice());
-    gameWins.Object.keys[result] += result.values[0];
-  }
-  if (gameWins.player === winCount) {
-    console.log("YOU WIN!");
-  } else {
-    console.log("YOU LOSE!");
+    console.log("Result: " + result);
+    switch (result) {
+      case "PLAYER":
+        playerWins += 1;
+        break;
+      case "COMPUTER":
+        compWins += 1;
+        break;
+      default:
+        draws += 1;
+        break;
+    }
+
+    console.log({ player: playerWins, computer: compWins, draws });
+    if (playerWins === winCount) {
+      console.log("YOU WIN!");
+      break;
+    } else if (compWins === winCount) {
+      console.log("YOU LOSE!");
+      break;
+    }
+
+    roundCount++;
   }
 };
 
-gameLoop(5);
+gameLoop(2);
