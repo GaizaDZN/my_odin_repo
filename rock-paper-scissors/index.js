@@ -1,6 +1,7 @@
 const randNum = () => {
   return Math.floor(Math.random() * 3);
 };
+
 const getComputerChoice = () => {
   let rand = randNum();
   console.log("compChoice = " + rand);
@@ -25,6 +26,7 @@ const playerSelection = () => {
 };
 
 function playRound(playerSelection, computerSelection) {
+
   let game = {
     scissors: "scissors beats paper",
     paper: "paper beats rock",
@@ -32,6 +34,7 @@ function playRound(playerSelection, computerSelection) {
   };
 
   let result = "";
+
   const playerWin = (str) => {
     console.log(str);
     console.log("Player wins the round!");
@@ -63,6 +66,7 @@ function playRound(playerSelection, computerSelection) {
         break;
     }
   }
+
   if (playerSelection === "paper") {
     switch (computerSelection) {
       case "scissors":
@@ -73,6 +77,7 @@ function playRound(playerSelection, computerSelection) {
         break;
     }
   }
+
   if (playerSelection === "scissors") {
     switch (computerSelection) {
       case "rock":
@@ -96,8 +101,9 @@ const gameLoop = (winCount) => {
   console.log("ROCK, PAPER SCISSORS");
   while (playerWins < winCount || compWins < winCount) {
     if (roundCount === 1) console.log("Let the games begin!");
+
     let result = playRound(playerSelection(), getComputerChoice());
-    console.log("Result: " + result);
+
     switch (result) {
       case "PLAYER":
         playerWins += 1;
@@ -123,4 +129,24 @@ const gameLoop = (winCount) => {
   }
 };
 
-gameLoop(2);
+// gameLoop(2);
+
+// const container = document.getElementById('container');
+// const h3 = document.createElement('h3')
+// h3.style.color = 'blue'
+// h3.textContent = "I'm a blue h3!"
+// const p = document.createElement('p')
+// p.style.color = 'red'
+// p.textContent = "Hey I'm red!"
+// const div = document.createElement('div')
+// div.setAttribute("style", "border: 1px solid black; background: pink")
+// const h1 = document.createElement('h1')
+// h1.textContent = "I'm in a div"
+// const p2 = document.createElement('p')
+// p2.textContent = "ME TOO!"
+
+// container.appendChild(h3)
+// container.appendChild(p)
+// container.appendChild(div)
+// div.appendChild(h1)
+// div.appendChild(p2)
