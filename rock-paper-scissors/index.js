@@ -1,6 +1,8 @@
 // DOM ///////////////////////
 const playerBtns = document.querySelectorAll(".submit");
+const compBtns = document.querySelectorAll(".comp-btn");
 const infoText = document.getElementById("infoText");
+const subInfoText = document.getElementById("subInfoText");
 const playerScore = document.getElementById("playerScore");
 const compScore = document.getElementById("compScore");
 const winText = document.getElementById("winText");
@@ -27,11 +29,11 @@ const newGame = (num) => {
   roundCount = 1;
   winCount = num;
   inGame = true;
-  gamOver = false;
+  gameOver = false;
 
-  updateText(playerScore, "Player:");
-  updateText(computerScore, "Computer:");
-  updateText(drawScore, "Draws:");
+  updateText(playerScore, "Player: 0");
+  updateText(compScore, "Computer: 0");
+  updateText(drawScore, "Draws: 0");
   updateText(winText, "");
 };
 
@@ -46,15 +48,26 @@ const randNum = () => {
 
 const getComputerChoice = () => {
   let rand = randNum();
-  console.log("compChoice = " + rand);
+  const alterBtn = (id) => {
+    console.log(id);
+    compBtns.forEach((btn) =>
+      btn.id !== id
+        ? (btn.classList.add("unselected"), btn.classList.remove("selected"))
+        : (btn.classList.add("selected"), btn.classList.remove("unselected"))
+    );
+  };
+
   switch (rand) {
     case 0:
+      alterBtn("compRock");
       return "rock";
       break;
     case 1:
+      alterBtn("compPaper");
       return "paper";
       break;
     case 2:
+      alterBtn("compScissors");
       return "scissors";
       break;
   }
@@ -64,8 +77,19 @@ const updateText = (el, str) => {
   el.textContent = str;
 };
 
+const selectAction = (id) => {
+  playerBtns.forEach((btn) =>
+    btn.id !== id
+      ? (btn.classList.add("unselected"), btn.classList.remove("selected"))
+      : (btn.classList.add("selected"), btn.classList.remove("unselected"))
+  );
+};
+
 const playerSelection = (e) => {
-  switch (e.target.id) {
+  let target = e.target.id;
+  selectAction(target);
+
+  switch (target) {
     case "rockBtn":
       userChoice = "rock";
       break;
@@ -80,6 +104,7 @@ const playerSelection = (e) => {
   }
 
   if (gameOver) {
+    newGame(2);
   }
   game();
 };
@@ -94,19 +119,21 @@ function playRound(playerSelection, computerSelection) {
   let result = "";
 
   const playerWin = (str) => {
-    console.log(str);
-    console.log("Player wins the round!");
+    // console.log(str);
+    updateText(subInfoText, str);
+    updateText(infoText, "Player wins the round!");
     result = "PLAYER";
   };
 
   const computerWin = (str) => {
-    console.log(str);
-    console.log("Computer wins the round!");
+    // console.log(str);
+    updateText(subInfoText, str);
+    updateText(infoText, "Computer wins the round!");
     result = "COMPUTER";
   };
 
   const draw = () => {
-    console.log("Draw. Try again!");
+    updateText(infoText, "Draw. Try again!");
     result = "DRAW";
   };
 
@@ -151,6 +178,28 @@ function playRound(playerSelection, computerSelection) {
 }
 
 const game = () => {
+  if (roundCount === 1) console.log("Let the games begin!");
+  inGame = true;
+
+  let result = playRound(userChoice, getComputerChoice());
+
+  switch (result) {
+    case "PLAYER":
+      playerWins += 1;
+      updateText(playerScore, `Player: ${playerWins}`);
+      break;
+    case "COMPUTER":
+      compWins += 1;
+      updateText(compScore, `Computer: ${compWins}`);
+      break;
+    default:
+      draws += 1;
+      updateText(drawScore, `Draws: ${draws}`);
+      break;
+  }
+
+  console.log({ player: playerWins, computer: compWins, draws });
+
   if (playerWins >= winCount || compWins >= winCount) {
     let winMsg = "";
     if (playerWins === winCount) {
@@ -161,64 +210,6 @@ const game = () => {
     updateText(winText, winMsg);
     endGame();
   } else {
-    if (roundCount === 1) console.log("Let the games begin!");
-    inGame = true;
-
-    let result = playRound(userChoice, getComputerChoice());
-
-    switch (result) {
-      case "PLAYER":
-        playerWins += 1;
-        updateText(playerScore, `Player: ${playerWins}`);
-        break;
-      case "COMPUTER":
-        compWins += 1;
-        updateText(compScore, `Computer: ${compWins}`);
-        break;
-      default:
-        draws += 1;
-        updateText(drawScore, `Draws: ${draws}`);
-        break;
-    }
-
-    console.log({ player: playerWins, computer: compWins, draws });
-
     roundCount++;
   }
 };
-
-const updateInfoLoop = () => {
-  if (!gameOver) {
-    if (infoText.textContent === "Awaiting player input...") {
-      updateText(infoText, "Awaiting player input.");
-    } else if (infoText.textContent === "Awaiting player input.") {
-      updateText(infoText, "Awaiting player input..");
-    } else if (infoText.textContent === "Awaiting player input..") {
-      updateText(infoText, "Awaiting player input...");
-    }
-    setTimeout(updateInfoLoop, 1000);
-  }
-};
-
-setTimeout(updateInfoLoop, 1000);
-// gameLoop(2);
-
-// const container = document.getElementById('container');
-// const h3 = document.createElement('h3')
-// h3.style.color = 'blue'
-// h3.textContent = "I'm a blue h3!"
-// const p = document.createElement('p')
-// p.style.color = 'red'
-// p.textContent = "Hey I'm red!"
-// const div = document.createElement('div')
-// div.setAttribute("style", "border: 1px solid black; background: pink")
-// const h1 = document.createElement('h1')
-// h1.textContent = "I'm in a div"
-// const p2 = document.createElement('p')
-// p2.textContent = "ME TOO!"
-
-// container.appendChild(h3)
-// container.appendChild(p)
-// container.appendChild(div)
-// div.appendChild(h1)
-// div.appendChild(p2)
