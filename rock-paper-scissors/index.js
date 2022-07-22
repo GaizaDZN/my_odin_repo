@@ -1,3 +1,45 @@
+// DOM ///////////////////////
+const playerBtns = document.querySelectorAll(".submit");
+const infoText = document.getElementById("infoText");
+const playerScore = document.getElementById("playerScore");
+const compScore = document.getElementById("compScore");
+const winText = document.getElementById("winText");
+
+// add event listeners to player buttons
+playerBtns.forEach((btn) =>
+  btn.addEventListener("click", (e) => playerSelection(e))
+);
+// DOM ///////////////////////
+
+let gameOver = false;
+let inGame = false;
+let userChoice = "";
+let playerWins = 0;
+let compWins = 0;
+let draws = 0;
+let roundCount = 1;
+let winCount = 2;
+
+const newGame = (num) => {
+  playerWins = 0;
+  compWins = 0;
+  draws = 0;
+  roundCount = 1;
+  winCount = num;
+  inGame = true;
+  gamOver = false;
+
+  updateText(playerScore, "Player:");
+  updateText(computerScore, "Computer:");
+  updateText(drawScore, "Draws:");
+  updateText(winText, "");
+};
+
+const endGame = () => {
+  gameOver = true;
+  inGame = false;
+};
+
 const randNum = () => {
   return Math.floor(Math.random() * 3);
 };
@@ -18,15 +60,31 @@ const getComputerChoice = () => {
   }
 };
 
-const playerSelection = () => {
-  let result = window
-    .prompt("Enter 'rock, 'paper' or 'scissors'")
-    .toLowerCase();
-  return result;
+const updateText = (el, str) => {
+  el.textContent = str;
+};
+
+const playerSelection = (e) => {
+  switch (e.target.id) {
+    case "rockBtn":
+      userChoice = "rock";
+      break;
+    case "paperBtn":
+      userChoice = "paper";
+      break;
+    case "scissorsBtn":
+      userChoice = "scissors";
+      break;
+    default:
+      userChoice = undefined;
+  }
+
+  if (gameOver) {
+  }
+  game();
 };
 
 function playRound(playerSelection, computerSelection) {
-
   let game = {
     scissors: "scissors beats paper",
     paper: "paper beats rock",
@@ -92,43 +150,57 @@ function playRound(playerSelection, computerSelection) {
   return result;
 }
 
-const gameLoop = (winCount) => {
-  let playerWins = 0;
-  let compWins = 0;
-  let draws = 0;
-  let roundCount = 1;
-
-  console.log("ROCK, PAPER SCISSORS");
-  while (playerWins < winCount || compWins < winCount) {
+const game = () => {
+  if (playerWins >= winCount || compWins >= winCount) {
+    let winMsg = "";
+    if (playerWins === winCount) {
+      winMsg = "YOU WIN!";
+    } else if (compWins === winCount) {
+      winMsg = "YOU LOSE!";
+    }
+    updateText(winText, winMsg);
+    endGame();
+  } else {
     if (roundCount === 1) console.log("Let the games begin!");
+    inGame = true;
 
-    let result = playRound(playerSelection(), getComputerChoice());
+    let result = playRound(userChoice, getComputerChoice());
 
     switch (result) {
       case "PLAYER":
         playerWins += 1;
+        updateText(playerScore, `Player: ${playerWins}`);
         break;
       case "COMPUTER":
         compWins += 1;
+        updateText(compScore, `Computer: ${compWins}`);
         break;
       default:
         draws += 1;
+        updateText(drawScore, `Draws: ${draws}`);
         break;
     }
 
     console.log({ player: playerWins, computer: compWins, draws });
-    if (playerWins === winCount) {
-      console.log("YOU WIN!");
-      break;
-    } else if (compWins === winCount) {
-      console.log("YOU LOSE!");
-      break;
-    }
 
     roundCount++;
   }
 };
 
+const updateInfoLoop = () => {
+  if (!gameOver) {
+    if (infoText.textContent === "Awaiting player input...") {
+      updateText(infoText, "Awaiting player input.");
+    } else if (infoText.textContent === "Awaiting player input.") {
+      updateText(infoText, "Awaiting player input..");
+    } else if (infoText.textContent === "Awaiting player input..") {
+      updateText(infoText, "Awaiting player input...");
+    }
+    setTimeout(updateInfoLoop, 1000);
+  }
+};
+
+setTimeout(updateInfoLoop, 1000);
 // gameLoop(2);
 
 // const container = document.getElementById('container');
