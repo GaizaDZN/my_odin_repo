@@ -3,14 +3,19 @@ const libraryList = document.getElementById("libraryList");
 
 let myLibrary = [];
 
-const Book = (name, author, numPages) => {
+function Book(name, author, numPages) {
   this.name = name;
   this.author = author;
   this.numPages = numPages;
   this.readStatus = false;
-};
+}
 
 const displayBooks = () => {
+  // delete current book elements if it exists
+  if (document.querySelectorAll(".book")) {
+    document.querySelectorAll(".book").forEach((book) => book.remove());
+  }
+
   myLibrary.forEach((book) => {
     // create parent li element
     let newBook = document.createElement("li");
@@ -19,23 +24,29 @@ const displayBooks = () => {
     // new div for info
     let bookInfo = document.createElement("div");
     bookInfo.classList.add("book-info");
+
     let bookTitle = document.createElement("h3");
-    bookTitle.textContent = book.title;
-    bookInfo.appendChild(bookTitle);
+    bookTitle.textContent = `${book.name}`;
     let bookAuthor = document.createElement("p");
-    bookAuthor.textContent = book.author;
-    bookInfo.appendChild(bookAuthor);
+    bookAuthor.textContent = `author: ${book.author}`;
     let bookNumPages = document.createElement("p");
-    bookNumPages = book.numPages;
+    bookNumPages.textContent = `number of pages: ${book.numPages}`;
+
+    // append info to li
+    bookInfo.appendChild(bookTitle);
+    bookInfo.appendChild(bookAuthor);
     bookInfo.appendChild(bookNumPages);
 
-    // append new dive to li element
+    // append div to li element
     newBook.appendChild(bookInfo);
+
+    //append li to ol
+    libraryList.appendChild(bookInfo)
 
     // add button to remove the book from the library
     let removeButton = document.createElement("button");
     removeButton.classList.add("remove-button");
-    removeButton.textContent = 'remove book'
+    removeButton.textContent = "remove book";
     removeButton.addEventListener("click", () => {
       myLibrary = myLibrary.filter(
         (libraryBook) => libraryBook.title !== book.title
@@ -55,8 +66,25 @@ const displayBooks = () => {
 };
 
 // add a new book to the library
-const newBook = (title, author, numPages) => {
-  let newBook = new Book(title, author, numPages);
-  newBook.prototype = Object.create(Book.prototype);
-  myLibrary.push(newBook);
+const addNewBook = () => {
+  const inputTitle = document.getElementById("inputTitle");
+  const inputAuthor = document.getElementById("inputAuthor");
+  const inputNumPages = document.getElementById("inputNumPages");
+
+  const bookToAdd = new Book(
+    inputTitle.value,
+    inputAuthor.value,
+    inputNumPages.value
+  );
+
+  // remove value from inputs
+  inputTitle.value = "";
+  inputAuthor.value = "";
+  inputNumPages.value = "";
+
+  myLibrary.push(bookToAdd);
+  displayBooks();
 };
+
+const addBookButton = document.getElementById("addBookButton");
+addBookButton.addEventListener("click", addNewBook);
