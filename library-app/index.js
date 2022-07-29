@@ -41,12 +41,15 @@ const displayBooks = () => {
     newBook.appendChild(bookInfo);
 
     //append li to ol
-    libraryList.appendChild(bookInfo)
+    libraryList.appendChild(newBook);
 
     // add button to remove the book from the library
     let removeButton = document.createElement("button");
+
     removeButton.classList.add("remove-button");
-    removeButton.textContent = "remove book";
+    removeButton.textContent = "delete";
+    newBook.appendChild(removeButton);
+
     removeButton.addEventListener("click", () => {
       myLibrary = myLibrary.filter(
         (libraryBook) => libraryBook.title !== book.title
