@@ -7,6 +7,7 @@ html {
 
 body {
   background-color: rgb(245, 245, 245);
+  font-family: "Open Sans", sans-serif;
 }
 
 main {
@@ -51,7 +52,7 @@ main {
 }
 
 #libraryContainer {
-    background-color: rgb(235 235 235);
+  background-color: rgb(235 235 235);
   padding: 20px;
   max-width: 800px;
   grid-column: 2 / span 5;
@@ -74,6 +75,7 @@ li {
   padding: 20px;
   border: 1px solid rgb(230, 230, 230);
   border-radius: 10px;
+  min-width: 200px;
 }
 
 .book-info p {
@@ -92,4 +94,33 @@ li {
 
 .remove-button:hover {
   background-color: rgb(224, 75, 75);
+}
+
+.read-button {
+  cursor: pointer;
+  color: white;
+  background-color: rgb(43, 196, 175);
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  border: none;
+}
+
+.read-button:hover {
+  background-color: rgb(65, 219, 199);
+}
+
+.read {
+background-color: rgb(218, 218, 218);
+}
+
+header {
+padding: 20px;
+background-color: rgb(23, 124, 23);
+color: white;
+}
+
+header span {
+    font-size: 18px;
+    font-weight: bold;
 }
