@@ -1,0 +1,41 @@
+*,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(145, 145, 145);
+  font-family: "Source Code Pro", monospace;
+  color: white;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.container {
+  margin: 30px;
+}
+
+.project-list-container {
+  background-color: black;
+  padding: 20px;
+  max-width: fit-content;
+}
+
+.project-list-container h4 {
+  margin-bottom: 20px;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style-type: none;
+}
+
+.project-list a {
+  color: white;
+}
