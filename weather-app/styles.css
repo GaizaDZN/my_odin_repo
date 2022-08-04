@@ -3,6 +3,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Source Code Pro", monospace;
 }
 
 body {
@@ -28,7 +29,7 @@ body {
   padding: 20px;
   background-color: black;
   width: fit-content;
-  min-width: min-content;
+  min-width: 300px;
   margin-bottom: 10px;
 }
 
@@ -42,21 +43,41 @@ body {
   gap: 10px;
 }
 
-#queryInput, #btn {
-height: 40px;
-border: none;
-text-align: center;
+#info4 {
+  max-width: 100px;
+}
+
+#queryInput,
+#btn {
+  height: 40px;
+  border: none;
+  text-align: center;
 }
 
 #btn {
-background-color: #1de1c6;
+  background-color: #1de1c6;
 }
 
 #btn:hover {
-cursor: pointer;
-background-color: #87f3c1;
+  cursor: pointer;
+  background-color: #87f3c1;
+}
+
+#loader {
+  margin-bottom: 10px;
 }
 
 .invisible {
   filter: opacity(0);
+
+  animation: fade-out 0.3s ease-in;
+}
+
+@keyframes fade-out {
+  0% {
+    filter: opacity(100);
+  }
+  100% {
+    filter: opacity(0);
+  }
 }
