@@ -1,3 +1,3 @@
-# My Odin project hub
+# My project hub
 
-### A private repo to consolidate everything I do, Odin Project related.
+### A collection of projects too small for their own repo.
